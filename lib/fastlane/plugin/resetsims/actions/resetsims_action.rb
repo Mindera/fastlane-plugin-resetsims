@@ -1,11 +1,11 @@
 module Fastlane
   module Actions
     class ResetsimsAction < Action
-      def self.run(params)
-        if params[:devices_regexp].empty?
+      def self.run(options)
+        if options[:devices_regexp].empty?
           device_list_grep = ""
         else
-          device_list_grep = " | grep '#{params[:devices_regexp]}'"
+          device_list_grep = " | grep '#{options[:devices_regexp]}'"
         end  
 
         Actions.sh "instruments -s devices #{device_list_grep} | grep \"(\\d*.\\d)\\|(\\d*.\\d.\\d)\" | grep -o \"[0-9A-F]\\{8\\}-[0-9A-F]\\{4\\}-[0-9A-F]\\{4\\}-[0-9A-F]\\{4\\}-[0-9A-F]\\{12\\}\" | while read -r line ; do
